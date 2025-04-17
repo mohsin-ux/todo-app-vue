@@ -64,11 +64,12 @@ async function updateCompleted(id, completed) {
           @on-delete="onDelete(todo.id)"
           @save-edit="saveEdit"
           @onClickOutside="editingIndex = null"
-          @update-modelValue="editText"
+          @update:modelValue="editText"
           @update-completed="updateCompleted"
           v-model="editText"
         />
         <p class="border border-cyan-500"></p>
+        <p class="text-cyan-500">{{ editText }}</p>
       </div>
     </div>
   </div>

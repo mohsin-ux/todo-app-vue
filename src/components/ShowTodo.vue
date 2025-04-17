@@ -3,7 +3,7 @@ import { ref, watch, computed } from "vue";
 
 const props = defineProps(["todo", "index", "editingIndex", "modelValue"]);
 const emit = defineEmits([
-  "update-modelValue",
+  "update:modelValue",
   "update-completed",
   "onDelete",
   "saveEdit",
@@ -15,7 +15,7 @@ const inputRefs = ref([]);
 
 const inputValue = computed({
   get: () => props.modelValue,
-  set: (value) => emit("update-modelValue", value),
+  set: (value) => emit("update:modelValue", value),
 });
 
 const completedValue = computed({
@@ -25,7 +25,10 @@ const completedValue = computed({
 </script>
 
 <template>
-  <div v-if="editingIndex !== index" class="flex items-center justify-between bg-green-50 px-3">
+  <div
+    v-if="editingIndex !== index"
+    class="flex items-center justify-between bg-green-50 px-3"
+  >
     <input
       class="bg-cyan-500 text-cyan-500 border-cyan-500"
       type="checkbox"
@@ -38,6 +41,12 @@ const completedValue = computed({
     >
       {{ todo.title }}
     </div>
+    <button
+      class="border bg-cyan-500 m-2 px-2 py-1"
+      @click="$emit('onEdit', index, inputRefs)"
+    >
+      edit
+    </button>
     <button @click="$emit('onDelete', index)" class="bg-red-500 px-4 py-1 m-2">
       delete
     </button>
@@ -49,14 +58,18 @@ const completedValue = computed({
       @keyup.enter="$emit('saveEdit', index)"
       @blur="
         () => {
-          console.log('hello vue developer');
           $emit('onClickOutside');
         }
       "
       type="text"
       v-model="inputValue"
-      class="border  px-2 py-1"
+      class="border px-2 py-1"
     />
-    <button class="border bg-cyan-500 m-2 px-2 py-1" @click="$emit('saveEdit', index)">edit</button>
+    <button
+      class="border bg-cyan-500 m-2 px-2 py-1"
+      @click="$emit('saveEdit', index)"
+    >
+      edit
+    </button>
   </div>
 </template>

@@ -42,7 +42,7 @@ async function updateCompleted(id, completed) {
 </script>
 
 <template>
-  <div class="p-4">
+  <div class="p-4 h-screen bg-cyan-500">
     <p class="text-3xl font-bold">Todo List</p>
 
     <div>
@@ -55,7 +55,7 @@ async function updateCompleted(id, completed) {
       />
       <button @click="addTodo" class="border bg-cyan-500 px-4 py-1 m-2">add</button>
 
-      <div class="w-1/2" v-for="(todo, index) in store.todos" :key="index">
+      <div class="w-150" v-for="(todo, index) in store.todos" :key="index">
         <ShowTodo
           :editingIndex="editingIndex"
           :index="index"

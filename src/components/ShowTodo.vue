@@ -29,27 +29,34 @@ const completedValue = computed({
     v-if="editingIndex !== index"
     class="flex items-center justify-between bg-green-50 px-3"
   >
-    <input
-      class="bg-cyan-500 text-cyan-500 border-cyan-500"
-      type="checkbox"
-      v-model="completedValue"
-    />
-    <div
-      @click="$emit('onEdit', index, inputRefs)"
-      class="w-50 h-6 m-2"
-      :class="{ 'line-through': todo.completed }"
-    >
-      {{ todo.title }}
+    <div class="flex">
+      <input
+        class="bg-cyan-500 text-cyan-500 border-cyan-500"
+        type="checkbox"
+        v-model="completedValue"
+      />
+      <div
+        @click="$emit('onEdit', index, inputRefs)"
+        class="w-50 h-6 m-2 truncate"
+        :class="{ 'line-through': todo.completed }"
+      >
+        {{ todo.title }}
+      </div>
     </div>
-    <button
-      class="border bg-cyan-500 m-2 px-2 py-1"
-      @click="$emit('onEdit', index, inputRefs)"
-    >
-      edit
-    </button>
-    <button @click="$emit('onDelete', index)" class="bg-red-500 px-4 py-1 m-2">
-      delete
-    </button>
+    <div class="flex">
+      <button
+        class="border bg-cyan-500 m-2 px-2 py-1"
+        @click="$emit('onEdit', index, inputRefs)"
+      >
+        edit
+      </button>
+      <button
+        @click="$emit('onDelete', index)"
+        class="bg-red-500 px-4 py-1 m-2"
+      >
+        delete
+      </button>
+    </div>
   </div>
 
   <div v-else class="flex items-center justify-between bg-green-50 p-2">

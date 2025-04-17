@@ -69,7 +69,6 @@ async function updateCompleted(id, completed) {
           v-model="editText"
         />
         <p class="border border-cyan-500"></p>
-        <p class="text-cyan-500">{{ editText }}</p>
       </div>
     </div>
   </div>

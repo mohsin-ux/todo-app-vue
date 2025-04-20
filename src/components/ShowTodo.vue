@@ -31,13 +31,13 @@ const completedValue = computed({
   >
     <div class="flex">
       <input
-        class="bg-cyan-500 text-cyan-500 border-cyan-500"
+        class="text-cyan-500 w-5 border-cyan-500"
         type="checkbox"
         v-model="completedValue"
       />
       <div
         @click="$emit('onEdit', index, inputRefs)"
-        class="w-50 h-6 m-2 truncate"
+        class=" m-2"
         :class="{ 'line-through': todo.completed }"
       >
         {{ todo.title }}

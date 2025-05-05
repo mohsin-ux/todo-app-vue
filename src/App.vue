@@ -8,6 +8,14 @@ const todoTitle = ref("");
 const editingIndex = ref(null);
 const editText = ref("");
 
+const arr = [
+  "All Completed",
+  "All In Progress",
+  "All Tasks",
+  "Today Tasks",
+  "1 Week tasks",
+];
+
 onMounted(async () => {
   store.fetchTodos();
 });
@@ -36,14 +44,30 @@ function saveEdit(index) {
   editText.value = "";
 }
 
-async function updateCompleted(id, completed) {
+function updateCompleted(id, completed) {
   store.updateTodo(id, { completed });
 }
+
+function onClick(e) {
+  console.log("clicked", e.target.value);
+}
+
 </script>
 
 <template>
-  <div class="p-4 h-screen bg-green-500">
-    <p class="text-3xl font-bold">Todo List</p>
+  <p class="text-3xl font-bold p-3">Todo List</p>
+  <div class="p-4 h-screen flex">
+    <div class="w-[20%] bg-green-50 p-3 mr-6">
+      Table Of Content
+      <div v-for="i,index in 5">
+        <div
+          class="bg-cyan-300 my-2 px-2 py-1 text-white rounded cursor-pointer hover:bg-emerald-400"
+          @click="onClick"
+        >
+          {{ arr[index] }}
+        </div>
+      </div>
+    </div>
 
     <div>
       <input
@@ -53,16 +77,15 @@ async function updateCompleted(id, completed) {
         v-model="todoTitle"
         class="px-2 w-120 py-1 border bg-white"
       />
-      <button @click="addTodo" class="border bg-cyan-500 px-4 py-1 m-2">
+      <button
+        @click="addTodo"
+        class="border bg-cyan-500 px-4 py-1 m-2 hover:bg-cyan-300"
+      >
         add
       </button>
 
-      <div class=" w-150 h-100 overflow-y-scroll bg-amber-600">
-        <div
-          class=""
-          v-for="(todo, index) in store.todos"
-          :key="index"
-        >
+      <div class="w-[75%] max-h-120 overflow-y-scroll">
+        <div class="" v-for="(todo, index) in store.todos" :key="index">
           <ShowTodo
             :editingIndex="editingIndex"
             :index="index"
@@ -75,7 +98,7 @@ async function updateCompleted(id, completed) {
             @update-completed="updateCompleted"
             v-model="editText"
           />
-          <p class="border border-cyan-500"></p>
+          <p class="border border-cyan-500 mb-5 "></p>
         </div>
       </div>
     </div>
